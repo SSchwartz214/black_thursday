@@ -3,15 +3,13 @@ require 'bigdecimal'
 require './lib/invoice_item'
 
 class InvoiceItemTest < Minitest::Test
-  DATA = {
-    :id          => "1",
-    :item_id     => "263519844",
-    :invoice_id => "1",
-    :quantity => "5",
-    :unit_price  => "34873",
-    :created_at  => "2016-01-11 09:34:06 UTC",
-    :updated_at  => "2007-06-04 21:35:10 UTC"
-    }
+  DATA = { id:           '1',
+           item_id:      '263519844',
+           invoice_id:   '1',
+           quantity:     '5',
+           unit_price:   '34873',
+           created_at:   '2016-01-11 09:34:06 UTC',
+           updated_at:   '2007-06-04 21:35:10 UTC' }
 
   def test_it_exists
     i = InvoiceItem.new(DATA)
@@ -23,7 +21,7 @@ class InvoiceItemTest < Minitest::Test
     i = InvoiceItem.new(DATA)
 
     assert_equal 1, i.id
-    assert_equal 263519844, i.item_id
+    assert_equal 263_519_844, i.item_id
     assert_equal 1, i.invoice_id
     assert_equal 5, i.quantity
     assert_equal 348.73, i.unit_price
@@ -37,5 +35,4 @@ class InvoiceItemTest < Minitest::Test
     assert_equal 348.73, i.unit_price_to_dollars
     assert_equal Float, i.unit_price_to_dollars.class
   end
-
 end

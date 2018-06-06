@@ -4,14 +4,14 @@ require './lib/sales_analyst'
 
 class SalesAnalystTest < Minitest::Test
   def setup
-    @se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      :customers => "./data/customers.csv",
-      :invoices  => "./data/invoices.csv",
-      :invoice_items => "./data/invoice_items.csv",
-      :transactions => "./data/transactions.csv"
-      })
+    @se = SalesEngine.new(
+      items:      './data/items.csv',
+      merchants:  './data/merchants.csv',
+      customers:  './data/customers.csv',
+      invoices:   './data/invoices.csv',
+      invoice_items:  './data/invoice_items.csv',
+      transactions:  './data/transactions.csv'
+    )
     @sa = @se.analyst
   end
 
@@ -30,21 +30,21 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_returns_merchants_more_than_one_standard_deviation_above_the_average_number_of_products_offered
-   assert_equal 52, @sa.merchants_with_high_item_count.length
-   assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
+    assert_equal 52, @sa.merchants_with_high_item_count.length
+    assert_equal Merchant, @sa.merchants_with_high_item_count.first.class
   end
 
   def test_returns_the_average_item_price_for_the_given_merchant
-    average_item_price = @sa.average_item_price_for_merchant(12334105)
+    average_item_price = @sa.average_item_price_for_merchant(12_334_105)
 
     assert_equal 16.66, average_item_price
     assert_equal BigDecimal, average_item_price.class
   end
 
   def test_it_returns_the_average_price_for_all_merchants
-   assert_equal 350.29, @sa.average_average_price_per_merchant
+    assert_equal 350.29, @sa.average_average_price_per_merchant
 
-   assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
+    assert_equal BigDecimal, @sa.average_average_price_per_merchant.class
   end
 
   def test_returns_items_that_are_two_standard_deviations_above_the_average_price
@@ -74,7 +74,7 @@ class SalesAnalystTest < Minitest::Test
 
   def test_returns_days_with_an_invoice_count_more_than_one_standard_deviation_above_the_mean
     assert_equal 1, @sa.top_days_by_invoice_count.length
-    assert_equal "Wednesday", @sa.top_days_by_invoice_count.first
+    assert_equal 'Wednesday', @sa.top_days_by_invoice_count.first
     assert_equal String, @sa.top_days_by_invoice_count.first.class
   end
 
@@ -94,7 +94,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_the_total_dollar_amount_if_the_invoice_is_paid_in_full
     invoice_total = @sa.invoice_total(1)
 
-    assert_equal 21067.77, invoice_total
+    assert_equal 21_067.77, invoice_total
     assert_equal BigDecimal, invoice_total.class
   end
 
@@ -122,7 +122,7 @@ class SalesAnalystTest < Minitest::Test
     merchant = @sa.top_merchant_for_customer(100)
 
     assert_equal Merchant, merchant.class
-    assert_equal 12336753, merchant.id
+    assert_equal 12_336_753, merchant.id
   end
 
   def test_one_time_buyers_returns_customers_with_only_one_invoice
@@ -135,7 +135,7 @@ class SalesAnalystTest < Minitest::Test
   def test_it_returns_item_bought_by_one_time_buyers_in_the_highest_quantity
     highest_selling_item = @sa.one_time_buyers_top_item
 
-    assert_equal 263396463, highest_selling_item.id
+    assert_equal 263_396_463, highest_selling_item.id
     assert_equal Item, highest_selling_item.class
   end
 
@@ -152,8 +152,8 @@ class SalesAnalystTest < Minitest::Test
     items = @sa.items_bought_in_year(customer_id, year)
 
     assert_equal 2, items.length
-    assert_equal 263549742, items.first.id
-    assert_equal "Necklace: V Tube", items.first.name
+    assert_equal 263_549_742, items.first.id
+    assert_equal 'Necklace: V Tube', items.first.name
     assert_equal Item, items.first.class
   end
 
@@ -161,8 +161,8 @@ class SalesAnalystTest < Minitest::Test
     items = @sa.highest_volume_items(200)
 
     assert_equal 6, items.length
-    assert_equal 263420195, items.first.id
-    assert_equal 263448547, items.last.id
+    assert_equal 263_420_195, items.first.id
+    assert_equal 263_448_547, items.last.id
     assert_equal Item, items.first.class
   end
 
@@ -188,5 +188,4 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 1281, invoice.id
     assert_equal Invoice, invoice.class
   end
-
 end
