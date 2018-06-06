@@ -5,7 +5,7 @@ class CustomerRepository
   include Repository
 
   def initialize(loaded_file)
-    @repository = loaded_file.map { |customer| Customer.new(customer)}
+    @repository = loaded_file.map { |customer| Customer.new(customer) }
   end
 
   def find_all_by_first_name(fragment)

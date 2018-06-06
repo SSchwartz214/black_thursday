@@ -2,13 +2,11 @@ require_relative 'test_helper'
 require './lib/customer'
 
 class CustomerTest < Minitest::Test
-  DATA = {
-    id: "1",
-    first_name: "Steve",
-    last_name: "Malek",
-    created_at: "2016-01-11 09:34:06 UTC",
-    updated_at: "2007-06-04 21:35:10 UTC"
-    }
+  DATA = { id:         '1',
+           first_name: 'Steve',
+           last_name:  'Malek',
+           created_at: '2016-01-11 09:34:06 UTC',
+           updated_at: '2007-06-04 21:35:10 UTC' }
 
   def test_it_exists
     c = Customer.new(DATA)

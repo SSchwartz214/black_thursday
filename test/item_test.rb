@@ -5,14 +5,14 @@ require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
   ITEM_DATA = {
-    :id          => "263538760",
-    :name        => "Pencil",
-    :description => "You can use it to write things",
-    :merchant_id => "12334185",
-    :unit_price  => "1200",
-    :created_at  => "2016-01-11 09:34:06 UTC",
-    :updated_at  => "2007-06-04 21:35:10 UTC"
-    }
+    id:          '263538760',
+    name:        'Pencil',
+    description: 'You can use it to write things',
+    merchant_id: '12334185',
+    unit_price:  '1200',
+    created_at:  '2016-01-11 09:34:06 UTC',
+    updated_at:  '2007-06-04 21:35:10 UTC'
+  }
 
   def test_it_exists
     item = Item.new(ITEM_DATA)
@@ -23,21 +23,19 @@ class ItemTest < Minitest::Test
   def test_it_has_attributes
     item = Item.new(ITEM_DATA)
 
-    assert_equal 263538760, item.id
-    assert_equal "Pencil", item.name
-    assert_equal "You can use it to write things", item.description
+    assert_equal 263_538_760, item.id
+    assert_equal 'Pencil', item.name
+    assert_equal 'You can use it to write things', item.description
     assert_instance_of BigDecimal, item.unit_price
-    assert_equal 12334185, item.merchant_id
+    assert_equal 12_334_185, item.merchant_id
     assert_instance_of Time, item.created_at
     assert_instance_of Time, item.updated_at
   end
 
   def test_returns_price_as_float
-    @se = SalesEngine.new({
-      :items     => "./data/items.csv",
-      :merchants => "./data/merchants.csv",
-      })
-    item = @se.items.find_by_id(263397059)
+    @se = SalesEngine.new(items: './data/items.csv',
+                          merchants: './data/merchants.csv')
+    item = @se.items.find_by_id(263_397_059)
     assert_equal 130.0, item.unit_price_to_dollars
     assert_equal Float, item.unit_price_to_dollars.class
   end
