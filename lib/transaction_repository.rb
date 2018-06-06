@@ -5,15 +5,15 @@ class TransactionRepository
   include Repository
 
   def initialize(loaded_file)
-    @repository = loaded_file.map { |transaction| Transaction.new(transaction)}
+    @repository = loaded_file.map { |transaction| Transaction.new(transaction) }
   end
 
   def find_all_by_credit_card_number(card_num)
-    all.find_all {|transaction| card_num == transaction.credit_card_number}
+    all.find_all { |transaction| card_num == transaction.credit_card_number }
   end
 
   def find_all_by_result(result)
-    all.find_all {|transaction| result == transaction.result}
+    all.find_all { |transaction| result == transaction.result }
   end
 
   def create(attributes)
